@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HelloWorld.Helper;assembly=HelloWorld"
+             x:Class="HelloWorld.Main.Dashboard">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NegateBooleanConverter x:Key="inverter"></local:NegateBooleanConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <Label Text="Movie Finder" HorizontalOptions="CenterAndExpand" FontSize="Medium"></Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Placeholder="find movie" Text="{Binding SearchText}"></Entry>
+            <Button Grid.Column="1" Text="Find" Command="{Binding OnSearchCommand}" IsEnabled="{Binding Path=IsBusy, Converter={StaticResource inverter}}"></Button>
+        </Grid>
+        <Grid>
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+            <ListView SeparatorColor="Black" ItemsSource="{Binding Movies}" 
+                      IsVisible="{Binding Path=IsBusy, Converter={StaticResource inverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding small_cover_image}" />
+                                    <Label Text="{Binding title}"
+                                TextColor="#f35e20" />
+                                    <Label Text="{Binding rating}"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="#503026" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </StackLayout>
+</ContentPage>
