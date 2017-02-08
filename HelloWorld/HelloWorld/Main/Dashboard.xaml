@@ -9,31 +9,30 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <Label Text="Movie Finder" HorizontalOptions="CenterAndExpand" FontSize="Medium"></Label>
+        <Label Text="New lookup" HorizontalOptions="CenterAndExpand" FontSize="Medium"></Label>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0" Placeholder="find movie" Text="{Binding SearchText}"></Entry>
+            <Entry Grid.Column="0" Placeholder="find new" Text="{Binding SearchText}"></Entry>
             <Button Grid.Column="1" Text="Find" Command="{Binding OnSearchCommand}" IsEnabled="{Binding Path=IsBusy, Converter={StaticResource inverter}}"></Button>
         </Grid>
         <Grid>
             <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
-            <ListView SeparatorColor="Black" ItemsSource="{Binding Movies}" 
+            <ListView SeparatorColor="Black" ItemsSource="{Binding Articles}" 
                       IsVisible="{Binding Path=IsBusy, Converter={StaticResource inverter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="#eee"
-                        Orientation="Vertical">
+                            <StackLayout BackgroundColor="#000" Orientation="Vertical">
                                 <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding small_cover_image}" />
-                                    <Label Text="{Binding title}"
-                                TextColor="#f35e20" />
-                                    <Label Text="{Binding rating}"
-                                HorizontalOptions="EndAndExpand"
-                                TextColor="#503026" />
+                                    <Label Text="{Binding title}"  FontFamily="Inconsolata-Regular.ttf#Inconsolata"
+                                           FontSize="Large" TextColor="#f35e20" />
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding author}" FontFamily="Inconsolata-Regular.ttf#Inconsolata" 
+                                           FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

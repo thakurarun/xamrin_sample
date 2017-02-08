@@ -36,14 +36,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Helper\FontAwesomeHelper.cs" />
     <Compile Include="Helper\NegateBooleanConverter.cs" />
     <Compile Include="Main\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\WebModel\MovieModel.cs" />
+    <Compile Include="Model\WebModel\ArticleWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\MovieService.cs" />
+    <Compile Include="Service\NewsService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
   </ItemGroup>

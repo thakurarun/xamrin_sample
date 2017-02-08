@@ -9,7 +9,7 @@ namespace HelloWorld.ViewModel
 {
     public class DashboardViewModel : BaseViewModel
     {
-        MovieService service;
+        NewsService service;
         private string searchText;
 
         public string SearchText
@@ -22,15 +22,14 @@ namespace HelloWorld.ViewModel
             }
         }
 
+        private ObservableCollection<Article> articles;
 
-        private ObservableCollection<Movie> movies;
-
-        public ObservableCollection<Movie> Movies
+        public ObservableCollection<Article> Articles
         {
-            get { return movies; }
+            get { return articles; }
             set
             {
-                movies = value;
+                articles = value;
                 OnProperyChange();
             }
         }
@@ -46,21 +45,15 @@ namespace HelloWorld.ViewModel
 
         public DashboardViewModel()
         {
-            service = new MovieService();
+            service = new NewsService();
             OnSearchCommand = new Command(async () => await OnSearch(), () => !IsBusy);
         }
         async Task OnSearch()
         {
             IsBusy = true;
-            var obj = await service.GetMovies(searchText?.Trim());
-            if (obj.data.movie_count == 0)
-            {
-                OnShowDialog($"Search result for {SearchText}", $"0 result found.");
-                IsBusy = false;
-                return;
-            }
-            OnShowDialog($"Search result for {SearchText}", $"{obj.data.movie_count} result found.");
-            Movies = new ObservableCollection<Movie>(obj.data?.movies);
+            Articles = new ObservableCollection<Article>(await service?.GetArticles());
+            if (Articles?.Count == 0)
+                OnShowDialog("Search Performed", "API NOT WORKING.");
             IsBusy = false;
         }
     }
